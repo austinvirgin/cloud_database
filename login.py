@@ -154,7 +154,7 @@ def logged_in_choices(user):
     # Display all of the users choices and see what they would like to do
     print("\nWhat would you like to do?")
     user_choice = 0
-    while user_choice != 6:
+    while user_choice != 8:
         choices = ("add a friend", "get a list of your friends", "look at a friends posts", "add a post", "get posts", "update your profile", "delete account", "quit")
         choice_amount = len(choices) - 1
         count = 0
