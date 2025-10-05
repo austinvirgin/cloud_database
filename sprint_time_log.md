@@ -31,7 +31,7 @@ The expected minimum amount of time each Sprint for each category is as follows:
 |10/4/2025 |   6:15   |   TP   |   Read through react native information    |  1:30 hours |
 |9/24/2025 |   2:00   |   TP   |   Planned project with team                |    1 hour   |
 |9/29/2025 |   2:00   |   TP   |   Planned project with team                |    1 hour   |
-|10/4/2025 |   7:45   |   IM   | Finished the project                       |   3 hours   |
+|10/4/2025 |   7:45   |   IM   | Finished the personal project              |   3 hours   |
 
 
 ## Sprint Totals
