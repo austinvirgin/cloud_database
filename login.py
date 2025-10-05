@@ -107,6 +107,7 @@ def exists_username(username):
     # Check if the username already exists
     user_ref = db.collection("users").document(username)
     user = user_ref.get()
+    clear_terminal()
     return user.exists
 
 def logged_in_user(user):
