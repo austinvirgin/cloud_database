@@ -116,7 +116,7 @@ def logged_in_user(user):
     print(f"Welcome {user._data['first_name']} {user._data['last_name']}")
     logged_in_choices(user)
 
-def get_posts(user):
+def get_posts(user, not_friend = True):
 
     # Get the username and look for the posts that have their username
     username = user.id
@@ -129,8 +129,9 @@ def get_posts(user):
         print(f"Title: {result._data['title']}")
         print(f"{result._data['post_text']}")
 
-    input("Press enter to continue...")
-    clear_terminal()
+    if not_friend:
+        input("Press enter to continue...")
+        clear_terminal()
 
 def update_user_profile(user):
 
@@ -155,6 +156,9 @@ def logged_in_choices(user):
     print("\nWhat would you like to do?")
     user_choice = 0
     while user_choice != 8:
+        username = user.id
+        user = db.collection('users').document(username)
+        user = user.get()
         choices = ("add a friend", "get a list of your friends", "look at a friends posts", "add a post", "get posts", "update your profile", "delete account", "quit")
         choice_amount = len(choices) - 1
         count = 0
@@ -189,6 +193,8 @@ def logged_in_choices(user):
 
             case 7:
                 delete_account(user)
+                print("Goodbye")
+                user_choice = 8
 
             case 8:        
                 print(f"Goodbye, {user._data['first_name']}")
@@ -206,22 +212,24 @@ def add_friend(user):
     user_ref.update({"friends": firestore.ArrayUnion([f'{friend}'])})
     print(f"{friend} has been added")
 
-def list_friends(user):
+def list_friends(user, just_list = True):
     # Print out all friends
     friends = user._data['friends']
     num_friend = 0
     for friend in friends:
         print(f"({num_friend + 1}) {friend}", end = "\t")
+        num_friend += 1
     print()
 
-    input("Press enter to continue...")
-    clear_terminal()
+    if just_list:
+        input("Press enter to continue...")
+        clear_terminal()
 
 def friends_posts(user):
 
     # Ask for the friend they would like to look at
     print("Please choose the friend's number whose posts you would like to look at")
-    list_friends(user)
+    list_friends(user, just_list= False)
 
     # Get the friends data and show their posts
     friends = user._data['friends']
@@ -229,7 +237,7 @@ def friends_posts(user):
     friend = friends[friend]
     friend_ref = db.collection('users').document(f"{friend}")
     friend_ref = friend_ref.get()
-    get_posts(friend_ref)
+    get_posts(friend_ref, not_friend = False)
 
     input("Press enter to continue...")
     clear_terminal()
